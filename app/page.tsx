@@ -23,7 +23,7 @@ export default async function Home() {
           <thead className="bg-gray-50">
             <tr>
               {columns.map((column) => (
-                <th id={column} className="border border-gray-300 px-4 py-2 text-left">
+                <th key={column} className="border border-gray-300 px-4 py-2 text-left">
                   {column}
                 </th>
               ))}

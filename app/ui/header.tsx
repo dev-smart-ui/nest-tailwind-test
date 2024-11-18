@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { NavLinks } from "./nav-links";
 import { useRef, useState, useEffect } from "react";
 
@@ -23,9 +24,9 @@ export function Header() {
   return (
     <header className="bg-color-header text-white p-4 w-full z-20">
       <nav className="container mx-auto flex items-center justify-between">
-        <a href="/" className="text-lg font-bold">
+        <Link href="/" className="text-lg font-bold">
           SmartUI
-        </a>
+        </Link>
 
         <ul className="hidden md:flex gap-3">
           <NavLinks onLinkClick={() => setIsOpen(false)} />
