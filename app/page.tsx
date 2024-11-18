@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
 interface IUser {
   id: number;
   name: string;
@@ -11,9 +15,34 @@ interface IUser {
 
 const columns = ["ID", "Name", "Username", "Email", "City", "Website"];
 
-export default async function Home() {
-  const data = await fetch("https://jsonplaceholder.typicode.com/users");
-  const users: IUser[] = await data.json();
+export default function Home() {
+  const [users, setUsers] = useState<IUser[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchUsers() {
+      setLoading(true);
+      try {
+        const res = await fetch("/data/users.json");
+        const data = await res.json();
+        setUsers(data);
+      } catch (error) {
+        console.error("Failed to fetch users:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchUsers();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex mt-10 justify-center h-screen">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-500"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto px-3 py-8">
